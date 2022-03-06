@@ -5,3 +5,4 @@ export * from "./forging-info";
 export * from "./rounds";
 export * from "./transaction-history-service";
 export * from "./block-chain-details";
+export * from "./milestone-search-result";
