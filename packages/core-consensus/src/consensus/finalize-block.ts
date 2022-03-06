@@ -1,6 +1,7 @@
-import { Contracts, Utils } from "@arkecosystem/core-kernel";
+import { Contracts } from "@arkecosystem/core-kernel";
+import { Interfaces } from "@arkecosystem/crypto";
 
 export interface FinalizeBlock {
-    increaseWalletForgerVoteBalance(wallet: Contracts.State.Wallet, amount: Utils.BigNumber): void;
-    decreaseForgerWalletVoteBalance(wallet: Contracts.State.Wallet, amount: Utils.BigNumber): void;
+    applyBlockToForger(forgerWallet: Contracts.State.Wallet, blockData: Interfaces.IBlockData): void;
+    revertBlockFromForger(forgerWallet: Contracts.State.Wallet, blockData: Interfaces.IBlockData): void;
 }
