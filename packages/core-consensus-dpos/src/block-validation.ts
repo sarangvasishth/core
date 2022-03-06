@@ -3,15 +3,7 @@ import { Crypto, Interfaces } from "@arkecosystem/crypto";
 import { Consensus } from "@arkecosystem/core-consensus";
 import { Container, Contracts, Utils, Services } from "@arkecosystem/core-kernel";
 import { Handlers } from "@arkecosystem/core-transactions";
-
-type BlockChainedDetails = {
-    followsPrevious: boolean;
-    isPlusOne: boolean;
-    previousSlot: number;
-    nextSlot: number;
-    isAfterPreviousSlot: boolean;
-    isChained: boolean;
-};
+import { BlockChainedDetails } from "@arkecosystem/core-kernel/src/contracts/shared";
 
 @Container.injectable()
 export class BlockValidation implements Consensus.BlockValidation {
