@@ -36,6 +36,12 @@
             },
             {
                 "package": "@arkecosystem/core-forger"
+            },
+            {
+                "package": "@arkecosystem/core-consensus"
+            },
+            {
+                "package": "@arkecosystem/core-consensus-dpos"
             }
         ]
     },
