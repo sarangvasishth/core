@@ -132,4 +132,7 @@ export const Identifiers = {
     // Watcher
     WatcherEventListener: Symbol.for("Watcher<EventListener>"),
     WatcherDatabaseService: Symbol.for("Watcher<DatabaseService>"),
+
+    // Consensus
+    ConsensusBlockValidation: Symbol.for("Consensus<BlockValidation>"),
 };
