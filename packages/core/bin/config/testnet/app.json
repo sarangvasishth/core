@@ -5,6 +5,12 @@
                 "package": "@arkecosystem/core-logger-pino"
             },
             {
+                "package": "@arkecosystem/core-consensus"
+            },
+            {
+                "package": "@arkecosystem/core-consensus-dpos"
+            },
+            {
                 "package": "@arkecosystem/core-state"
             },
             {
@@ -36,12 +42,6 @@
             },
             {
                 "package": "@arkecosystem/core-forger"
-            },
-            {
-                "package": "@arkecosystem/core-consensus"
-            },
-            {
-                "package": "@arkecosystem/core-consensus-dpos"
             }
         ]
     },

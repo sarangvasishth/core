@@ -8,7 +8,7 @@ export class FinalizeBlock implements Consensus.FinalizeBlock {
     @Container.tagged("state", "blockchain")
     private readonly walletRepository!: Contracts.State.WalletRepository;
 
-    public applyBlockToForger(forgerWallet: Contracts.State.Wallet, blockData: Interfaces.IBlockData) {
+    public applyBlockToForger(forgerWallet: Contracts.State.Wallet, blockData: Interfaces.IBlockData): void {
         const delegateAttribute = forgerWallet.getAttribute<Contracts.State.WalletDelegateAttributes>("delegate");
         delegateAttribute.producedBlocks++;
         delegateAttribute.forgedFees = delegateAttribute.forgedFees.plus(blockData.totalFee);
@@ -20,7 +20,7 @@ export class FinalizeBlock implements Consensus.FinalizeBlock {
         forgerWallet.increaseBalance(balanceIncrease);
     }
 
-    public revertBlockFromForger(forgerWallet: Contracts.State.Wallet, blockData: Interfaces.IBlockData) {
+    public revertBlockFromForger(forgerWallet: Contracts.State.Wallet, blockData: Interfaces.IBlockData): void {
         const delegateAttribute = forgerWallet.getAttribute<Contracts.State.WalletDelegateAttributes>("delegate");
         delegateAttribute.producedBlocks--;
         delegateAttribute.forgedFees = delegateAttribute.forgedFees.minus(blockData.totalFee);
@@ -32,7 +32,7 @@ export class FinalizeBlock implements Consensus.FinalizeBlock {
         forgerWallet.decreaseBalance(balanceDecrease);
     }
 
-    private increaseForgerWalletVoteBalance(wallet: Contracts.State.Wallet, amount: Utils.BigNumber) {
+    private increaseForgerWalletVoteBalance(wallet: Contracts.State.Wallet, amount: Utils.BigNumber): void {
         if (wallet.hasVoted()) {
             const delegatePulicKey = wallet.getAttribute<string>("vote");
             const delegateWallet = this.walletRepository.findByPublicKey(delegatePulicKey);
@@ -41,7 +41,7 @@ export class FinalizeBlock implements Consensus.FinalizeBlock {
             delegateWallet.setAttribute("delegate.voteBalance", newDelegateVoteBalance);
         }
     }
-    private decreaseForgerWalletVoteBalance(wallet: Contracts.State.Wallet, amount: Utils.BigNumber) {
+    private decreaseForgerWalletVoteBalance(wallet: Contracts.State.Wallet, amount: Utils.BigNumber): void {
         if (wallet.hasVoted()) {
             const delegatePulicKey = wallet.getAttribute<string>("vote");
             const delegateWallet = this.walletRepository.findByPublicKey(delegatePulicKey);
