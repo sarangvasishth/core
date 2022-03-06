@@ -26,6 +26,9 @@ export class BlockValidation implements Consensus.BlockValidation {
     @Container.inject(Container.Identifiers.DatabaseTransactionRepository)
     private readonly transactionRepository!: Repositories.TransactionRepository;
 
+    @Container.inject(Container.Identifiers.ConsensusForgerSelection)
+    private readonly forgerSelection!: Consensus.ForgerSelection;
+
     public async verifyBlock(block: Interfaces.IBlock): Promise<boolean> {
         if (block.verification.containsMultiSignatures) {
             try {
@@ -118,7 +121,7 @@ export class BlockValidation implements Consensus.BlockValidation {
             roundInfo,
         })) as Contracts.State.Wallet[];
 
-        const forgingInfo: Contracts.Shared.ForgingInfo = Utils.forgingInfoCalculator.calculateForgingInfo(
+        const forgingInfo: Contracts.Shared.ForgingInfo = this.forgerSelection.calculateForgingInfo(
             block.data.timestamp,
             block.data.height,
             blockTimeLookup,

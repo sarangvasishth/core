@@ -20,6 +20,7 @@ export class BlockState implements Contracts.State.BlockState {
 
     @Container.inject(Container.Identifiers.ConsensusFinalizeBlock)
     private finalizeBlock!: Consensus.FinalizeBlock;
+
     public async applyBlock(block: Interfaces.IBlock): Promise<void> {
         if (block.data.height === 1) {
             this.initGenesisForgerWallet(block.data.generatorPublicKey);

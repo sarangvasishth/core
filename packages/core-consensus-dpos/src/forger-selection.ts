@@ -1,7 +1,7 @@
 import { Consensus } from "@arkecosystem/core-consensus";
 import { Container } from "@arkecosystem/core-kernel";
-import { Crypto, Managers } from "@arkecosystem/crypto";
 import { ForgingInfo, MilestoneSearchResult } from "@arkecosystem/core-kernel/src/contracts/shared";
+import { Crypto, Managers } from "@arkecosystem/crypto";
 
 @Container.injectable()
 export class ForgerSelection implements Consensus.ForgerSelection {

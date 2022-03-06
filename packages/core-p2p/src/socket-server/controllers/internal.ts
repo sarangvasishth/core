@@ -1,3 +1,4 @@
+import { Consensus } from "@arkecosystem/core-consensus";
 import { Container, Contracts, Utils } from "@arkecosystem/core-kernel";
 import { DatabaseInteraction } from "@arkecosystem/core-state";
 import { Crypto, Interfaces, Managers } from "@arkecosystem/crypto";
@@ -26,6 +27,9 @@ export class InternalController extends Controller {
 
     @Container.inject(Container.Identifiers.TransactionPoolCollator)
     private readonly collator!: Contracts.TransactionPool.Collator;
+
+    @Container.inject(Container.Identifiers.ConsensusForgerSelection)
+    private readonly forgerSelection!: Consensus.ForgerSelection;
 
     public async acceptNewPeer(request: Hapi.Request, h: Hapi.ResponseToolkit): Promise<void> {
         return this.peerProcessor.validateAndAcceptPeer({
@@ -67,7 +71,7 @@ export class InternalController extends Controller {
         const blockTimeLookup = await Utils.forgingInfoCalculator.getBlockTimeLookup(this.app, height);
 
         const timestamp = Crypto.Slots.getTime();
-        const forgingInfo = Utils.forgingInfoCalculator.calculateForgingInfo(timestamp, height, blockTimeLookup);
+        const forgingInfo = this.forgerSelection.calculateForgingInfo(timestamp, height, blockTimeLookup);
 
         return {
             current: roundInfo.round,

@@ -1,3 +1,4 @@
+import { Consensus } from "@arkecosystem/core-consensus";
 import { Container, Contracts, Services, Utils } from "@arkecosystem/core-kernel";
 import { Managers, Utils as CryptoUtils } from "@arkecosystem/crypto";
 
@@ -44,6 +45,14 @@ export class DelegateTracker {
 
     /**
      * @private
+     * @type {Consensus.ForgerSelection}
+     * @memberof ForgerSelection
+     */
+    @Container.inject(Container.Identifiers.ConsensusForgerSelection)
+    private readonly forgerSelection!: Consensus.ForgerSelection;
+
+    /**
+     * @private
      * @type {Delegate[]}
      * @memberof DelegateTracker
      */
@@ -75,14 +84,13 @@ export class DelegateTracker {
             .get<Services.Triggers.Triggers>(Container.Identifiers.TriggerService)
             .call("getActiveDelegates", { roundInfo: round })) as Contracts.State.Wallet[];
 
-        const activeDelegatesPublicKeys: (
-            | string
-            | undefined
-        )[] = activeDelegates.map((delegate: Contracts.State.Wallet) => delegate.getPublicKey());
+        const activeDelegatesPublicKeys: (string | undefined)[] = activeDelegates.map(
+            (delegate: Contracts.State.Wallet) => delegate.getPublicKey(),
+        );
 
         const blockTimeLookup = await Utils.forgingInfoCalculator.getBlockTimeLookup(this.app, height);
 
-        const forgingInfo: Contracts.Shared.ForgingInfo = Utils.forgingInfoCalculator.calculateForgingInfo(
+        const forgingInfo: Contracts.Shared.ForgingInfo = this.forgerSelection.calculateForgingInfo(
             timestamp,
             height,
             blockTimeLookup,

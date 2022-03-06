@@ -1,4 +1,3 @@
-import { calculateForgingInfo } from "./calculate-forging-info";
 import { calculateApproval, calculateForgedTotal } from "./delegate-calculator";
 import { calculateLockExpirationStatus, calculateTransactionExpiration } from "./expiration-calculator";
 import { formatTimestamp } from "./format-timestamp";
@@ -22,6 +21,6 @@ export const delegateCalculator = { calculateApproval, calculateForgedTotal };
 export const expirationCalculator = { calculateTransactionExpiration, calculateLockExpirationStatus };
 export const roundCalculator = { calculateRound, isNewRound };
 export const supplyCalculator = { calculate };
-export const forgingInfoCalculator = { calculateForgingInfo, getBlockTimeLookup };
+export const forgingInfoCalculator = { getBlockTimeLookup };
 
 export { formatTimestamp, isBlockChained, getBlockNotChainedErrorMessage, isBlacklisted, isWhitelisted };
