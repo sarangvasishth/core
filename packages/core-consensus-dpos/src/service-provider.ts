@@ -1,6 +1,7 @@
 import { Container, Providers } from "@arkecosystem/core-kernel";
 import { BlockValidation } from "./block-validation";
 import { FinalizeBlock } from "./finalize-block";
+import { ForgerSelection } from "./forger-selection";
 
 export class ServiceProvider extends Providers.ServiceProvider {
     public async register(): Promise<void> {
@@ -8,6 +9,7 @@ export class ServiceProvider extends Providers.ServiceProvider {
 
         this.app.bind(Container.Identifiers.ConsensusBlockValidation).to(BlockValidation);
         this.app.bind(Container.Identifiers.ConsensusFinalizeBlock).to(FinalizeBlock);
+        this.app.bind(Container.Identifiers.ConsensusForgerSelection).to(ForgerSelection);
     }
 
     public async boot(): Promise<void> {

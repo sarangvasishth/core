@@ -136,4 +136,5 @@ export const Identifiers = {
     // Consensus
     ConsensusBlockValidation: Symbol.for("Consensus<BlockValidation>"),
     ConsensusFinalizeBlock: Symbol.for("Consensus<FinalizeBlock>"),
+    ConsensusForgerSelection: Symbol.for("Consensus<ForgerSelection>"),
 };
